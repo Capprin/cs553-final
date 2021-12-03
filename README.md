@@ -30,7 +30,7 @@ function can be used to change the mapping.
 % isosurface plot with color mapping
 figure(420); clf;
 colormap hot; %must be run after figure init
-vis_field_3d(grid, ccf_scalar, 'isosurface');
+vis_field_3d(grid, ccf_scalar);
 ```
 
 `generate_ccf.m`: Uses syplotter to do system initialization and compute
