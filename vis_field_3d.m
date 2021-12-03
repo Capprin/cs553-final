@@ -17,11 +17,14 @@ function f = vis_field_3d(grid, field, method, levels)
     if ~exist('levels','var')
         levels = 5;
     end
+    % vars
+    field_min = min(field,[],'all');
+    field_max = max(field,[],'all');
+    grid_min = min(grid{1},[],'all');
+    grid_max = max(grid{1},[],'all');
     % upscale grid
     points = 31;
     F = griddedInterpolant(grid{:}, field, 'cubic');
-    grid_min = min(grid{1},[],'all');
-    grid_max = max(grid{1},[],'all');
     samples = linspace(grid_min, grid_max, points);
     grid_scaled = cell(size(grid));
     [grid_scaled{:}] = ndgrid(samples, samples, samples);
@@ -31,8 +34,6 @@ function f = vis_field_3d(grid, field, method, levels)
         case 'isosurface'
             % isosurface visualization
             % setup
-            field_min = min(field,[],'all');
-            field_max = max(field,[],'all');
             isovals = linspace(field_min, field_max, levels);
             alphas = linspace(0,0.7,levels);
             cmap = colormap(420);
@@ -53,6 +54,13 @@ function f = vis_field_3d(grid, field, method, levels)
             end
         case 'critical'
             % critical points
+            % literally just find the top 1% on the field
+            tol = (field_max-field_min)/100;
+            max_logical = abs(field_scaled - field_max) < tol;
+            scatter3(grid_scaled{1}(max_logical),...
+                     grid_scaled{2}(max_logical),...
+                     grid_scaled{3}(max_logical),...
+                     'ko', 'filled');
     end
     % labels
     xlabel('\alpha_1');
