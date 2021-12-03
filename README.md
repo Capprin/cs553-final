@@ -9,7 +9,7 @@ used for source system files and algorithms.
 ### Scripts
 `vis_field_2d.m`: Function for 2D visualization of scalar data.
 > Note: MATLAB's
-(`colormap`)[https://www.mathworks.com/help/matlab/ref/colormap.html]
+[`colormap`](https://www.mathworks.com/help/matlab/ref/colormap.html)
 function can be used to change the mapping.
 
 `generate_ccf.m`: Uses syplotter to do system initialization and compute
