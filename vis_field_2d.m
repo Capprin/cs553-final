@@ -3,9 +3,9 @@
 % inputs:
     % grid: ndgrid
     % field: scalar field defined over grid
-    % method: visualization method; any of {contour, gradient, critical}
+    % method: visualization method; any of {contour, contourf, gradient, critical}
 
-function f = vis_field_2d(grid, field, method)
+function f = vis_field_2d(grid, field, method, levels)
     % figure setup
     f = figure(69);
     hold on;
@@ -13,16 +13,21 @@ function f = vis_field_2d(grid, field, method)
     if ~exist('method', 'var')
         method = 'contour';
     end
+    if ~exist('levels','var')
+        levels = 7;
+    end
     % visualization techniques
     switch method
         case 'contour'
             % contour plot
-            contour(field);
+            contour(field, levels);
+        case 'contourf'
+            % filled contour plot
+            contourf(field, levels, 'LineStyle', 'none');
         case 'gradient'
             % gradient plot (rotate to respect meshgrid)
             image(1, 1, field, 'CdataMapping', 'scaled','Interpolation','bilinear');
             axis('on');
-            colorbar;
         case 'critical'
             % critical points
             % actually requires bilinear interp. this is a pita so will
@@ -39,4 +44,5 @@ function f = vis_field_2d(grid, field, method)
     yticks(linspace(yl(1), yl(2), 7));
     yticklabels({'' '-2' '-1' '0' '1' '2' ''});
     axis('equal')
+    colorbar;
 end
