@@ -5,9 +5,9 @@
     % field: scalar field defined over grid
     % method: visualization method; any of {contour, gradient, critical}
 
-function vis_field_2d(grid, field, method)
+function f = vis_field_2d(grid, field, method)
     % figure setup
-    figure(69);
+    f = figure(69);
     hold on;
     % sanitize
     if ~exist('method', 'var')
