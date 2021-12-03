@@ -17,6 +17,15 @@ function f = vis_field_3d(grid, field, method, levels)
     if ~exist('levels','var')
         levels = 5;
     end
+    % upscale grid
+    points = 31;
+    F = griddedInterpolant(grid{:}, field, 'cubic');
+    grid_min = min(grid{1},[],'all');
+    grid_max = max(grid{1},[],'all');
+    samples = linspace(grid_min, grid_max, points);
+    grid_scaled = cell(size(grid));
+    [grid_scaled{:}] = ndgrid(samples, samples, samples);
+    field_scaled = F(grid_scaled{:});
     % visualization techniques
     switch method
         case 'isosurface'
@@ -28,13 +37,13 @@ function f = vis_field_3d(grid, field, method, levels)
             alphas = linspace(0,0.7,levels);
             cmap = colormap(420);
             % turn ndgrid into meshgrid for visualization
-            grid_mesh = cellfun(@(g) permute(g, [2 1 3]), grid, 'UniformOutput', false);
+            grid_mesh = cellfun(@(g) permute(g, [2 1 3]), grid_scaled, 'UniformOutput', false);
             % create isosurface at each level
             for i = 1:levels
                 % generate surface as 3D polygon
-                surf = isosurface(grid_mesh{:},field,isovals(i));
+                surf = isosurface(grid_mesh{:},field_scaled,isovals(i));
                 poly = patch(surf);
-                isonormals(grid_mesh{:}, field, poly); %might need samples
+                isonormals(grid_mesh{:}, field_scaled, poly); %might need samples
                 % use current colormap for color
                 c_i = floor(i/levels*size(cmap,1));
                 set(poly,...
