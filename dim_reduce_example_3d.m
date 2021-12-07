@@ -23,7 +23,7 @@ bound_idxs = [1 points points^2-points+1 points^2];
 plane_corners = cellfun(@(c) c(bound_idxs), grid_reduced, 'UniformOutput', false);
 plane_corners = cell2mat(plane_corners);
 plane_corners = [plane_corners(:,1:2), fliplr(plane_corners(:,3:4)), plane_corners(:,1)];
-plot3(plane_corners(1,:), plane_corners(2,:), plane_corners(3,:), 'k');
+plot3(plane_corners(1,:), plane_corners(2,:), plane_corners(3,:), '--k');
 
 % visualize reduced field
 figure(99);
