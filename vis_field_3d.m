@@ -8,7 +8,6 @@
 
 function f = vis_field_3d(grid, field, method, levels)
     % figure setup
-    f = figure(420);
     hold on;
     % sanitize
     if ~exist('method','var')
@@ -36,7 +35,7 @@ function f = vis_field_3d(grid, field, method, levels)
             % setup
             isovals = linspace(field_min, field_max, levels);
             alphas = linspace(0,0.7,levels);
-            cmap = colormap(420);
+            cmap = colormap;
             % turn ndgrid into meshgrid for visualization
             grid_mesh = cellfun(@(g) permute(g, [2 1 3]), grid_scaled, 'UniformOutput', false);
             % create isosurface at each level

@@ -7,7 +7,6 @@
 
 function f = vis_field_2d(grid, field, method, levels)
     % figure setup
-    f = figure(69);
     hold on;
     % sanitize
     if ~exist('method', 'var')
