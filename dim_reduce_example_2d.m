@@ -6,7 +6,7 @@ load('data_sysf_three_link_HighRe.mat');
 
 % generate an 'interesting' subdomain
 range = linspace(-2.5, 2.5);
-grid_reduced = line_domain(range, deg2rad(35));
+grid_reduced = line_domain(range, deg2rad(45));
 field_reduced = dim_reduce(grid, ccf_scalar, grid_reduced);
 
 % visualize original field
